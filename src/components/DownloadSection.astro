@@ -1,0 +1,342 @@
+---
+const versions = [
+  { 
+    version: "1.2.0", 
+    date: "May 15, 2023",
+    mac: { 
+      intel: "https://github.com/datadeck/releases/download/v1.2.0/DataDeck-1.2.0-mac-intel.dmg",
+      arm: "https://github.com/datadeck/releases/download/v1.2.0/DataDeck-1.2.0-mac-arm64.dmg" 
+    },
+    windows: "https://github.com/datadeck/releases/download/v1.2.0/DataDeck-1.2.0-win.exe",
+    changelog: [
+      "Added AI-powered query generation",
+      "Improved connection manager",
+      "Fixed issues with MySQL large datasets"
+    ]
+  },
+  { 
+    version: "1.1.0", 
+    date: "March 10, 2023",
+    mac: { 
+      intel: "https://github.com/datadeck/releases/download/v1.1.0/DataDeck-1.1.0-mac-intel.dmg",
+      arm: "https://github.com/datadeck/releases/download/v1.1.0/DataDeck-1.1.0-mac-arm64.dmg" 
+    },
+    windows: "https://github.com/datadeck/releases/download/v1.1.0/DataDeck-1.1.0-win.exe",
+    changelog: [
+      "Added dark mode support",
+      "New visualization options",
+      "Performance improvements"
+    ]
+  },
+  { 
+    version: "1.0.0", 
+    date: "January 5, 2023",
+    mac: { 
+      intel: "https://github.com/datadeck/releases/download/v1.0.0/DataDeck-1.0.0-mac-intel.dmg",
+      arm: "https://github.com/datadeck/releases/download/v1.0.0/DataDeck-1.0.0-mac-arm64.dmg" 
+    },
+    windows: "https://github.com/datadeck/releases/download/v1.0.0/DataDeck-1.0.0-win.exe",
+    changelog: [
+      "Initial release",
+      "Basic database connections",
+      "Query editor and result viewer"
+    ]
+  }
+];
+
+// Platform icons
+const macIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"></path>
+</svg>`;
+
+const windowsIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+  <path d="m3 12v7.38c0 .6.6 1.1 1.2.98l7.67-2.12c.25-.07.43-.29.43-.55V10.8c0-.23-.15-.43-.37-.5L4.4 8.1c-.36-.12-.73.04-.96.3C3.15 8.73 3 9.2 3 9.7V12zm17.8-6.7c-.22-.67-.74-1.17-1.43-1.3L12.5 3.04c-.15-.03-.31-.04-.46-.04C11.44 3 11 3.44 11 4.04v16.12c0 .48.34.9.8.98l7.14 1.54c.73.16 1.46-.04 1.98-.56.38-.37.58-.88.58-1.42V9.88c0-1.95-.18-3.09-1.28-4.38l.58-.2z"></path>
+</svg>`;
+
+const linuxIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M12.5 1.03c-1.44 0-2.72.23-3.6 1.03-.8.72-1.27 1.7-1.63 2.6-.36.9-.66 1.92-1.2 2.75-.26.43-.58.9-1.05 1.3-.46.4-1.1.7-1.77.7-.24 0-.42.13-.54.3-.2.25-.3.6-.3.98 0 .7.06 1.3.2 1.84.13.56.47 1.02.9 1.32.63.42 1.24.5 1.83.6.59.12 1.18.22 1.54.5.23.18.4.4.53.67.13.25.23.57.32.86.06.2.12.38.18.55.06.15.15.3.28.4.07.04.15.08.24.1.1.03.19.04.3.04.22.01.45-.08.66-.17.22-.09.42-.2.63-.32.66-.36 1.43-.68 2.15-.84.36-.08.71-.13 1.07-.14.36 0 .74.04 1.04.26.28.2.46.54.56.86.12.33.2.68.3 1.04.1.35.24.73.55 1 .32.28.8.35 1.3.26.48-.1 1-.36 1.5-.63.25-.13.5-.27.8-.32.3-.05.66 0 .95.13.32.14.6.34.86.53.26.2.53.38.8.53.15.07.27.1.4.1.25 0 .46-.06.62-.3.15-.25.24-.65.35-1.08.12-.44.24-.9.52-1.25.25-.32.6-.52 1.02-.65.42-.13.9-.2 1.34-.27.45-.07.88-.16 1.28-.35.4-.2.7-.43 1.03-.86.32-.4.6-1.02.6-1.6 0-.63-.17-1.16-.44-1.54-.27-.38-.63-.63-1-.83-.38-.2-.77-.33-1.13-.56-.36-.23-.7-.53-.94-1.05-.27-.5-.45-1.2-.66-1.9-.21-.8-.46-1.54-.9-2.08-.45-.53-1.1-.9-1.9-.9H12.5zm0 1h1.76c.57 0 .88.2 1.13.5.3.35.5 1 .7 1.75.2.77.4 1.53.74 2.12.35.64.85 1.05 1.3 1.33.45.27.9.4 1.27.6.35.19.62.4.82.65.2.26.28.6.28.94 0 .33-.15.64-.4.94-.25.3-.54.47-.82.6-.28.14-.63.22-1.05.28-.4.06-.85.14-1.2.25-.33.1-.61.23-.82.48-.2.25-.33.62-.44 1.02-.11.4-.22.77-.45 1.16-.31.5-.84.75-1.47.67-.35-.03-.7-.23-.95-.42-.27-.2-.5-.38-.7-.48-.2-.1-.4-.16-.57-.14-.16.02-.36.1-.65.26-.55.3-1.14.56-1.66.66-.43.08-.7-.02-.84-.15-.14-.13-.25-.37-.33-.66-.08-.28-.15-.6-.26-.88-.12-.3-.26-.56-.44-.7-.18-.13-.4-.18-.68-.18-.33 0-.65.04-.96.1-.64.15-1.32.4-1.88.7-.28.14-.54.3-.7.35-.16.06-.28.06-.3.06-.05-.01-.06-.03-.1-.13-.06-.16-.1-.36-.14-.53-.06-.3-.17-.6-.28-.82-.12-.21-.27-.37-.43-.5-.33-.25-.78-.34-1.3-.44-.5-.1-1.02-.2-1.45-.48-.27-.2-.46-.44-.55-.84-.1-.42-.15-.94-.15-1.56 0-.3.08-.48.14-.57.01-.02.02-.02.03-.03h.01c.46 0 .86-.2 1.2-.5.34-.3.6-.7.82-1.05.6-.92.86-1.9 1.24-2.85.37-.95.83-1.8 1.5-2.4.6-.55 1.58-.75 2.93-.75zm-3.67 10.42c-.8 0-1.6.23-2.3.54-.7.3-1.32.72-1.75 1.12-.43.4-.66.8-.66 1.02s.23.36.54.36c.54 0 .7-.1 1.47-.58.76-.47 1.7-1.14 2.7-1.14h.06c1 0 1.94.67 2.7 1.14.77.46.93.57 1.47.57.3 0 .53-.14.53-.36 0-.22-.23-.62-.66-1.02-.43-.4-1.04-.8-1.75-1.12-.7-.3-1.5-.53-2.3-.53h-.05z"></path>
+</svg>`;
+
+const downloadIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+</svg>`;
+---
+
+<section class="py-24 px-4 bg-gradient-to-b from-gray-50 to-white" id="download">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
+        Ready to Try
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">Download DataDeck</h2>
+      <p class="text-xl text-gray-600">
+        Get started with DataDeck today. Available for macOS and Windows.
+      </p>
+    </div>
+    
+    <div class="hidden md:block">
+      <!-- OS Tabs -->
+      <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1 bg-gray-100 rounded-xl">
+          <button id="mac-tab" class="flex items-center space-x-2 px-5 py-3 rounded-lg bg-white shadow-sm font-medium transition-all">
+            <span class="text-blue-600" set:html={macIcon}></span>
+            <span>macOS</span>
+          </button>
+          <button id="windows-tab" class="flex items-center space-x-2 px-5 py-3 rounded-lg font-medium text-gray-600 hover:text-gray-900 transition-all">
+            <span set:html={windowsIcon}></span>
+            <span>Windows</span>
+          </button>
+          <button id="linux-tab" class="flex items-center space-x-2 px-5 py-3 rounded-lg font-medium text-gray-600 hover:text-gray-900 transition-all">
+            <span set:html={linuxIcon}></span>
+            <span>Linux</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Current version quick download -->
+      <div class="mb-12 max-w-2xl mx-auto">
+        <div id="mac-current" class="flex flex-col items-center p-8 border border-blue-100 rounded-2xl bg-blue-50">
+          <h3 class="text-2xl font-bold text-center mb-2">Latest version: {versions[0].version}</h3>
+          <p class="text-gray-500 mb-6">{versions[0].date}</p>
+          <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+            <a href={versions[0].mac.intel} class="flex-1 flex items-center justify-center bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              <span set:html={downloadIcon}></span>
+              <span>Download for Intel Mac</span>
+            </a>
+            <a href={versions[0].mac.arm} class="flex-1 flex items-center justify-center bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              <span set:html={downloadIcon}></span>
+              <span>Download for Apple Silicon</span>
+            </a>
+          </div>
+        </div>
+        
+        <div id="windows-current" class="hidden flex flex-col items-center p-8 border border-blue-100 rounded-2xl bg-blue-50">
+          <h3 class="text-2xl font-bold text-center mb-2">Latest version: {versions[0].version}</h3>
+          <p class="text-gray-500 mb-6">{versions[0].date}</p>
+          <a href={versions[0].windows} class="flex items-center justify-center bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            <span set:html={downloadIcon}></span>
+            <span>Download for Windows</span>
+          </a>
+        </div>
+        
+        <div id="linux-current" class="hidden flex flex-col items-center p-8 border border-yellow-100 rounded-2xl bg-yellow-50">
+          <h3 class="text-xl font-bold text-center mb-2">Linux support coming soon</h3>
+          <p class="text-gray-600 mb-6 text-center">We're actively working on Linux support. Join our mailing list to be notified when it's ready.</p>
+          <div class="flex w-full max-w-md">
+            <input type="email" placeholder="Enter your email" class="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors">Notify me</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Version List -->
+      <div class="border-t border-gray-200 pt-12">
+        <h3 class="text-xl font-semibold mb-6 text-center">Previous Versions</h3>
+        
+        <div id="mac-content" class="block">
+          <div class="space-y-4">
+            {versions.slice(1).map((release, index) => (
+              <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between p-6">
+                  <div>
+                    <h3 class="text-lg font-semibold">Version {release.version}</h3>
+                    <p class="text-gray-500 text-sm">{release.date}</p>
+                  </div>
+                  <div class="mt-4 md:mt-0 flex flex-col sm:flex-row gap-3">
+                    <a href={release.mac.intel} class="text-sm px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
+                      <span class="text-gray-600" set:html={downloadIcon}></span>
+                      <span>Intel Mac</span>
+                    </a>
+                    <a href={release.mac.arm} class="text-sm px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
+                      <span class="text-gray-600" set:html={downloadIcon}></span>
+                      <span>Apple Silicon</span>
+                    </a>
+                    <button class="text-blue-600 text-sm hover:text-blue-800 flex items-center" data-version={release.version}>
+                      <span>See changes</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="changelog hidden px-6 py-4 border-t border-gray-100 bg-gray-50" id={`mac-changelog-${release.version}`}>
+                  <h4 class="text-sm font-medium mb-2">What's new in version {release.version}:</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm">
+                    {release.changelog.map(item => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div id="windows-content" class="hidden">
+          <div class="space-y-4">
+            {versions.slice(1).map((release, index) => (
+              <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between p-6">
+                  <div>
+                    <h3 class="text-lg font-semibold">Version {release.version}</h3>
+                    <p class="text-gray-500 text-sm">{release.date}</p>
+                  </div>
+                  <div class="mt-4 md:mt-0 flex flex-col sm:flex-row gap-3">
+                    <a href={release.windows} class="text-sm px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
+                      <span class="text-gray-600" set:html={downloadIcon}></span>
+                      <span>Windows</span>
+                    </a>
+                    <button class="text-blue-600 text-sm hover:text-blue-800 flex items-center" data-version={release.version}>
+                      <span>See changes</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="changelog hidden px-6 py-4 border-t border-gray-100 bg-gray-50" id={`win-changelog-${release.version}`}>
+                  <h4 class="text-sm font-medium mb-2">What's new in version {release.version}:</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm">
+                    {release.changelog.map(item => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile view -->
+    <div class="md:hidden">
+      <div class="bg-white rounded-xl border-2 border-blue-100 p-6 text-center">
+        <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Desktop Download Only</h3>
+        <p class="text-gray-600 mb-4">
+          DataDeck is currently available for desktop platforms only. Please visit this page on your desktop to download.
+        </p>
+        <div class="flex justify-center">
+          <a href="#" class="text-blue-600 font-medium flex items-center" onclick="event.preventDefault(); navigator.share({title: 'DataDeck', url: window.location.href})">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+            </svg>
+            <span>Share this link</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // OS detection
+  function detectOS() {
+    const userAgent = window.navigator.userAgent;
+    const platform = window.navigator.platform;
+    const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'darwin'];
+    const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+    const linuxPlatforms = ['Linux', 'X11'];
+    
+    if (macosPlatforms.some(p => platform.includes(p)) || userAgent.includes('Mac')) {
+      return 'mac';
+    } else if (windowsPlatforms.some(p => platform.includes(p)) || userAgent.includes('Windows')) {
+      return 'windows';
+    } else if (linuxPlatforms.some(p => platform.includes(p)) || userAgent.includes('Linux')) {
+      return 'linux';
+    } else {
+      return 'other';
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Elements
+    const macTab = document.getElementById('mac-tab');
+    const windowsTab = document.getElementById('windows-tab');
+    const linuxTab = document.getElementById('linux-tab');
+    
+    const macCurrent = document.getElementById('mac-current');
+    const windowsCurrent = document.getElementById('windows-current');
+    const linuxCurrent = document.getElementById('linux-current');
+    
+    const macContent = document.getElementById('mac-content');
+    const windowsContent = document.getElementById('windows-content');
+    
+    // Changelog toggles
+    const changelogButtons = document.querySelectorAll('[data-version]');
+    changelogButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const version = button.getAttribute('data-version');
+        const macChangelog = document.getElementById(`mac-changelog-${version}`);
+        const winChangelog = document.getElementById(`win-changelog-${version}`);
+        
+        if (macChangelog) {
+          macChangelog.classList.toggle('hidden');
+        }
+        
+        if (winChangelog) {
+          winChangelog.classList.toggle('hidden');
+        }
+      });
+    });
+    
+    // Only proceed if all required elements exist
+    if (!macTab || !windowsTab || !linuxTab || !macCurrent || !windowsCurrent || 
+        !linuxCurrent || !macContent || !windowsContent) {
+      console.error('Some download section elements not found');
+      return;
+    }
+    
+    function setActiveTab(tab) {
+      // Reset all tabs
+      [macTab, windowsTab, linuxTab].forEach(t => {
+        t.classList.remove('bg-white', 'shadow-sm', 'text-blue-600');
+        t.classList.add('text-gray-600');
+      });
+      
+      // Hide all content
+      macCurrent.classList.add('hidden');
+      windowsCurrent.classList.add('hidden');
+      linuxCurrent.classList.add('hidden');
+      macContent.classList.add('hidden');
+      windowsContent.classList.add('hidden');
+      
+      // Set active tab and show relevant content
+      if (tab === 'mac') {
+        macTab.classList.remove('text-gray-600');
+        macTab.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+        macCurrent.classList.remove('hidden');
+        macContent.classList.remove('hidden');
+      } else if (tab === 'windows') {
+        windowsTab.classList.remove('text-gray-600');
+        windowsTab.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+        windowsCurrent.classList.remove('hidden');
+        windowsContent.classList.remove('hidden');
+      } else if (tab === 'linux') {
+        linuxTab.classList.remove('text-gray-600');
+        linuxTab.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+        linuxCurrent.classList.remove('hidden');
+      }
+    }
+    
+    // Set initial active tab based on OS
+    const os = detectOS();
+    if (os === 'windows') {
+      setActiveTab('windows');
+    } else if (os === 'linux') {
+      setActiveTab('linux');
+    } else {
+      setActiveTab('mac');
+    }
+    
+    // Tab click handlers
+    macTab.addEventListener('click', () => setActiveTab('mac'));
+    windowsTab.addEventListener('click', () => setActiveTab('windows'));
+    linuxTab.addEventListener('click', () => setActiveTab('linux'));
+  });
+</script> 

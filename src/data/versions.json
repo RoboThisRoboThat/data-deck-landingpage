@@ -1,0 +1,44 @@
+[
+    {
+        "version": "1.2.0",
+        "date": "May 15, 2023",
+        "mac": {
+            "intel": "https://github.com/datadeck/releases/download/v1.2.0/DataDeck-1.2.0-mac-intel.dmg",
+            "arm": "https://github.com/datadeck/releases/download/v1.2.0/DataDeck-1.2.0-mac-arm64.dmg"
+        },
+        "windows": "https://github.com/datadeck/releases/download/v1.2.0/DataDeck-1.2.0-win.exe",
+        "changelog": [
+            "Added AI-powered query generation",
+            "Improved connection manager",
+            "Fixed issues with MySQL large datasets"
+        ]
+    },
+    {
+        "version": "1.1.0",
+        "date": "March 10, 2023",
+        "mac": {
+            "intel": "https://github.com/datadeck/releases/download/v1.1.0/DataDeck-1.1.0-mac-intel.dmg",
+            "arm": "https://github.com/datadeck/releases/download/v1.1.0/DataDeck-1.1.0-mac-arm64.dmg"
+        },
+        "windows": "https://github.com/datadeck/releases/download/v1.1.0/DataDeck-1.1.0-win.exe",
+        "changelog": [
+            "Added dark mode support",
+            "New visualization options",
+            "Performance improvements"
+        ]
+    },
+    {
+        "version": "1.0.0",
+        "date": "January 5, 2023",
+        "mac": {
+            "intel": "https://github.com/datadeck/releases/download/v1.0.0/DataDeck-1.0.0-mac-intel.dmg",
+            "arm": "https://github.com/datadeck/releases/download/v1.0.0/DataDeck-1.0.0-mac-arm64.dmg"
+        },
+        "windows": "https://github.com/datadeck/releases/download/v1.0.0/DataDeck-1.0.0-win.exe",
+        "changelog": [
+            "Initial release",
+            "Basic database connections",
+            "Query editor and result viewer"
+        ]
+    }
+]

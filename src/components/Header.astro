@@ -1,0 +1,62 @@
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">D</div>
+      <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">DataDeck</span>
+    </div>
+    
+    <nav class="hidden md:flex space-x-10">
+      <a href="#features" class="text-gray-600 hover:text-blue-600 transition-all font-medium">Features</a>
+      <a href="#download" class="text-gray-600 hover:text-blue-600 transition-all font-medium">Download</a>
+      <a href="https://github.com/datadeck" target="_blank" rel="noopener" class="text-gray-600 hover:text-blue-600 transition-all font-medium">GitHub</a>
+    </nav>
+    
+    <div class="hidden md:block">
+      <a href="#download" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium">
+        Download Now
+      </a>
+    </div>
+    
+    <div class="md:hidden">
+      <button id="mobile-menu-button" class="text-gray-600 focus:outline-none" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden px-4 pt-4 pb-6 shadow-inner bg-gray-50">
+    <nav class="flex flex-col space-y-4">
+      <a href="#features" class="text-gray-700 hover:text-blue-600 transition-all font-medium py-2">Features</a>
+      <a href="#download" class="text-gray-700 hover:text-blue-600 transition-all font-medium py-2">Download</a>
+      <a href="https://github.com/datadeck" target="_blank" rel="noopener" class="text-gray-700 hover:text-blue-600 transition-all font-medium py-2">GitHub</a>
+      <a href="#download" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-center rounded-lg transition-colors font-medium py-3">
+        Download Now
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle with smoother animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (menuButton && mobileMenu) {
+      menuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      
+      // Close mobile menu when clicking on a link
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+  });
+</script> 

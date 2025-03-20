@@ -1,0 +1,117 @@
+---
+const features = [
+  {
+    title: "AI-Powered Assistance",
+    description: "Generate SQL queries, optimize database performance, and get smart suggestions with built-in AI capabilities.",
+    icon: "🤖",
+    color: "blue"
+  },
+  {
+    title: "Multi-Database Support",
+    description: "Connect to MySQL, PostgreSQL, SQLite, MongoDB, and more from a single intuitive interface.",
+    icon: "🔄",
+    color: "indigo"
+  },
+  {
+    title: "Visual Query Builder",
+    description: "Build complex queries with an easy-to-use visual interface, no SQL expertise required.",
+    icon: "📊",
+    color: "purple"
+  },
+  {
+    title: "Data Visualization",
+    description: "Create charts and graphs from your query results with just a few clicks.",
+    icon: "📈",
+    color: "pink"
+  },
+  {
+    title: "Advanced Security",
+    description: "Your database credentials are encrypted and never leave your device.",
+    icon: "🔒",
+    color: "teal"
+  },
+  {
+    title: "Open Source",
+    description: "Free and open-source forever, with an active community of contributors.",
+    icon: "💻",
+    color: "amber"
+  }
+];
+
+const colorClasses = {
+  blue: {
+    bg: "bg-blue-50",
+    iconBg: "bg-blue-500",
+    hover: "hover:bg-blue-100",
+    border: "border-blue-200"
+  },
+  indigo: {
+    bg: "bg-indigo-50",
+    iconBg: "bg-indigo-500",
+    hover: "hover:bg-indigo-100",
+    border: "border-indigo-200"
+  },
+  purple: {
+    bg: "bg-purple-50",
+    iconBg: "bg-purple-500",
+    hover: "hover:bg-purple-100",
+    border: "border-purple-200"
+  },
+  pink: {
+    bg: "bg-pink-50",
+    iconBg: "bg-pink-500",
+    hover: "hover:bg-pink-100",
+    border: "border-pink-200"
+  },
+  teal: {
+    bg: "bg-teal-50",
+    iconBg: "bg-teal-500",
+    hover: "hover:bg-teal-100",
+    border: "border-teal-200"
+  },
+  amber: {
+    bg: "bg-amber-50",
+    iconBg: "bg-amber-500",
+    hover: "hover:bg-amber-100",
+    border: "border-amber-200"
+  }
+};
+---
+
+<section class="py-20 bg-white px-4" id="features">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
+        Power Features
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">Everything You Need</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        DataDeck combines powerful features with an intuitive interface, making database management accessible to everyone.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map(feature => {
+        const colors = colorClasses[feature.color];
+        return (
+          <div class={`p-8 rounded-2xl border ${colors.border} ${colors.bg} ${colors.hover} transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group`}>
+            <div class={`w-14 h-14 ${colors.bg} rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+              <span class="text-3xl">{feature.icon}</span>
+            </div>
+            <h3 class="text-2xl font-semibold mb-3">{feature.title}</h3>
+            <p class="text-gray-600">{feature.description}</p>
+          </div>
+        )
+      })}
+    </div>
+    
+    <div class="mt-16 text-center">
+      <a href="#download" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 group">
+        <span>Try it yourself</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section> 

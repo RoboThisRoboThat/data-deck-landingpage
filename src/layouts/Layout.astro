@@ -1,0 +1,31 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "DataDeck - AI-Powered Database Management Tool",
+	description = "Open-source database management tool with AI-powered capabilities. Available for Mac and Windows."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<style is:global>
+			@tailwind base;
+			@tailwind components;
+			@tailwind utilities;
+		</style>
+		<title>{title}</title>
+	</head>
+	<body class="bg-gray-50 text-gray-900 min-h-screen">
+		<slot />
+	</body>
+</html>
